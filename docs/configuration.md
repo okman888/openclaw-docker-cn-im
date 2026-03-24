@@ -162,6 +162,7 @@ IMAGE_MODEL_ID=aliyun/qwen-vl-max
 | 参数 | 说明 | 默认值 |
 | --- | --- | --- |
 | `OPENCLAW_DATA_DIR` | 宿主机挂载目录 | `~/.openclaw` |
+| `DOCKER_BIND` | Docker 端口绑定 IP | `0.0.0.0` |
 | `OPENCLAW_RUN_USER` | 容器运行用户 UID:GID | `0:0` |
 
 默认设计是：
@@ -169,6 +170,14 @@ IMAGE_MODEL_ID=aliyun/qwen-vl-max
 1. 容器先以 root 启动
 2. [`init.sh`](../init.sh) 尝试修复挂载目录权限
 3. 再以更合适的用户运行 OpenClaw
+
+### 安全建议
+
+默认情况下 `DOCKER_BIND` 为 `0.0.0.0`，这意味着容器端口将监听所有网卡（包括公网 IP）。如果你只想在本地访问网关（例如配合反向代理使用），建议在 `.env` 中设置：
+
+```bash
+DOCKER_BIND=127.0.0.1
+```
 
 如果你明确知道宿主机目录的 UID/GID，可以把 `OPENCLAW_RUN_USER` 改成例如 `1000:1000`。
 

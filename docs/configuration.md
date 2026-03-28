@@ -239,12 +239,38 @@ DOCKER_BIND=127.0.0.1
 
 ## 插件与工具配置
 
-| 参数 | 说明 |
-| --- | --- |
-| `OPENCLAW_PLUGINS_ENABLED` | 是否启用插件系统 |
-| `OPENCLAW_TOOLS_JSON` | 自定义工具配置 JSON |
+| 参数 | 说明 | 默认值 |
+| --- | --- | --- |
+| `OPENCLAW_PLUGINS_ENABLED` | 是否启用插件系统 | `true` |
+| `OPENCLAW_SANDBOX_MODE` | 沙箱模式，可选 `off`, `non-main`, `all` | `off` |
+| `OPENCLAW_SANDBOX_SCOPE` | 沙箱范围，可选 `session`, `agent`, `shared` | `agent` |
+| `OPENCLAW_SANDBOX_DOCKER_IMAGE` | 沙箱使用的 Docker 镜像 | `openclaw-sandbox:bookworm-slim` |
+| `OPENCLAW_SANDBOX_WORKSPACE_ACCESS` | 工作区访问权限，可选 `none`, `ro`, `rw` | `none` |
+| `OPENCLAW_SANDBOX_JSON` | 自定义沙箱配置 JSON（全量覆盖/合并） | 留空 |
+| `OPENCLAW_TOOLS_JSON` | 自定义工具配置 JSON | 留空 |
 
-默认工具配置结构可参考 [`tools`](../openclaw.json.example) 节点。
+### 沙箱配置 (Sandbox)
+
+沙箱用于隔离工具执行（如 Python 代码运行、Shell 执行）。当开启 `non-main` 或 `all` 模式时，Agent 会在隔离的 Docker 容器中运行相关工具。
+
+**工作区访问 (Workspace Access)**：
+
+- `none` (默认): 工具会在 `~/.openclaw/sandboxes` 下看到沙箱工作区。
+- `ro`: 在 `/agent` 处挂载只读代理工作区（禁用 write / edit / apply_patch）。
+- `rw`: 在 `/workspace` 处挂载代理工作区读写器。
+
+**注意**：本镜像运行在 Docker 中，因此使用 Docker 沙箱需要将宿主机的 `/var/run/docker.sock` 挂载到容器内，并确开启docker-compose.yml内沙箱支持的注释。
+
+示例配置 (`.env`)：
+
+```bash
+OPENCLAW_SANDBOX_MODE=non-main
+OPENCLAW_SANDBOX_SCOPE=agent
+OPENCLAW_SANDBOX_WORKSPACE_ACCESS=none
+OPENCLAW_SANDBOX_DOCKER_IMAGE=openclaw-sandbox:bookworm-slim
+```
+
+### 工具配置 (Tools)
 
 ---
 

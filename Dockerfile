@@ -82,7 +82,7 @@ RUN cd /home/node/.openclaw/extensions && \
   timeout 300 openclaw plugins install @sunnoy/wecom || true && \
   mkdir -p /home/node/.openclaw /home/node/.openclaw-seed && \
   # 预执行安装命令（容器内需手动交互，此处仅作声明或环境准备）
-  #  printf '{\n  "channels": {\n    "feishu": {\n      "enabled": false,\n      "appId": "2222222222222222",\n      "appSecret": "1111111111111111",\n      "accounts": {\n        "default": {\n          "appId": "2222222222222222",\n          "appSecret": "1111111111111111",\n          "botName": "OpenClaw Bot"\n        }\n      }\n    }\n  }\n}\n' > /home/node/.openclaw/openclaw.json && \
+  #  printf '{\n  "channels": {\n    "feishu": {\n      "enabled": false,\n      "appId": "2222222222222222",\n      "appSecret": "1111111111111111",\n      "accounts": {\n        "default": {\n          "appId": "2222222222222222",\n          "appSecret": "1111111111111111",\n          "name": "OpenClaw Bot"\n        }\n      }\n    }\n  }\n}\n' > /home/node/.openclaw/openclaw.json && \
   # npx -y @larksuite/openclaw-lark-tools install && \
   find /home/node/.openclaw/extensions -name ".git" -type d -exec rm -rf {} + && \
   mv /home/node/.openclaw/extensions /home/node/.openclaw-seed/ && \

@@ -233,7 +233,7 @@ su node
 
 ## 部署后的建议检查项
 
-- 确认端口 `18789` 与 `18790` 未被占用
+- 确认端口 `18789` 被占用
 - 确认 [`.env`](../.env.example) 中至少完成模型相关配置
 - 确认宿主机数据目录对容器可写
 - 如需接入 IM 平台，优先根据 [`.env.example`](../.env.example) 与 [`docs/configuration.md`](configuration.md) 补充对应环境变量

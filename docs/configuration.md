@@ -138,7 +138,6 @@ IMAGE_MODEL_ID=aliyun/qwen-vl-max
 | `OPENCLAW_GATEWAY_TOKEN` | Gateway 访问令牌 | `123456` |
 | `OPENCLAW_GATEWAY_BIND` | 绑定地址 | `lan` |
 | `OPENCLAW_GATEWAY_PORT` | Gateway 端口 | `18789` |
-| `OPENCLAW_BRIDGE_PORT` | Bridge 端口 | `18790` |
 | `OPENCLAW_GATEWAY_MODE` | 运行模式 | `local` |
 | `OPENCLAW_GATEWAY_ALLOWED_ORIGINS` | 允许的来源域 | `http://localhost` |
 | `OPENCLAW_GATEWAY_ALLOW_INSECURE_AUTH` | 是否允许不安全认证 | `true` |

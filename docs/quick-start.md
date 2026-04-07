@@ -34,9 +34,16 @@ cd OpenClaw-Docker-CN-IM
 
 ### 2. 初始化环境变量
 
-```bash
-cp .env.example .env
-```
+你可以根据需求选择完整版或精简版配置：
+
+- **完整版 (推荐)**: 包含所有可选配置及详细注释
+  ```bash
+  cp .env.example .env
+  ```
+- **精简版 (极简起步)**: 仅包含运行必需的核心参数
+  ```bash
+  cp .env.minimal .env
+  ```
 
 至少配置以下三个变量：
 

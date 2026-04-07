@@ -8,7 +8,8 @@
 
 | 文件 | 作用 |
 | --- | --- |
-| [`.env.example`](../.env.example) | 环境变量模板，复制为 `.env` 后使用 |
+| [`.env.example`](../.env.example) | 完整环境变量模板，包含所有可选配置及详细注释 |
+| [`.env.minimal`](../.env.minimal) | 精简环境变量模板，仅包含运行必需的核心参数 |
 | [`docker-compose.yml`](../docker-compose.yml) | 把环境变量注入容器并定义卷、端口、服务 |
 | [`openclaw.json.example`](../openclaw.json.example) | OpenClaw 配置结构示例，用于理解最终生成结果 |
 | [`init.sh`](../init.sh) | 启动时读取环境变量并生成 / 修正实际配置 |

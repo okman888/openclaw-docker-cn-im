@@ -73,22 +73,24 @@ RUN mkdir -p /home/node/.linuxbrew/Homebrew && \
     chown -R node:node /home/node/.linuxbrew && \
     chmod -R g+rwX /home/node/.linuxbrew
 
-RUN cd /home/node/.openclaw/extensions && \
+ARG CLAWHUB_TOKEN
+RUN if [ -n "$CLAWHUB_TOKEN" ]; then clawhub login --token "$CLAWHUB_TOKEN"; fi && \
+  cd /home/node/.openclaw/extensions && \
   git clone --depth 1 -b v4.17.25 https://github.com/Daiyimo/openclaw-napcat.git napcat && \
   cd napcat && \
   npm install --production && \
-  timeout 300 openclaw plugins install -l . || true && \
+  timeout 300 openclaw plugins install --dangerously-force-unsafe-install -l . || true && \
   cd /home/node/.openclaw/extensions && \
-  timeout 300 openclaw plugins install @soimy/dingtalk || true && \
-  timeout 300 openclaw plugins install @tencent-connect/openclaw-qqbot@latest || true && \
-  timeout 300 openclaw plugins install @sunnoy/wecom || true && \
+  timeout 300 openclaw plugins install --dangerously-force-unsafe-install @soimy/dingtalk || true && \
+  timeout 300 openclaw plugins install --dangerously-force-unsafe-install @tencent-connect/openclaw-qqbot@latest || true && \
+  timeout 300 openclaw plugins install --dangerously-force-unsafe-install @sunnoy/wecom || true && \
   mkdir -p /home/node/.openclaw /home/node/.openclaw-seed && \
   # 预执行安装命令（容器内需手动交互，此处仅作声明或环境准备）
   #  printf '{\n  "channels": {\n    "feishu": {\n      "enabled": false,\n      "appId": "2222222222222222",\n      "appSecret": "1111111111111111",\n      "accounts": {\n        "default": {\n          "appId": "2222222222222222",\n          "appSecret": "1111111111111111",\n          "name": "OpenClaw Bot"\n        }\n      }\n    }\n  }\n}\n' > /home/node/.openclaw/openclaw.json && \
   # npx -y @larksuite/openclaw-lark-tools install && \
   find /home/node/.openclaw/extensions -name ".git" -type d -exec rm -rf {} + && \
   mv /home/node/.openclaw/extensions /home/node/.openclaw-seed/ && \
-  printf '%s\n' '2026.4.9' > /home/node/.openclaw-seed/extensions/.seed-version && \
+  printf '%s\n' '2026.4.9-f1' > /home/node/.openclaw-seed/extensions/.seed-version && \
   rm -rf /tmp/* /home/node/.npm /home/node/.cache
   
 # 3. 最终配置
